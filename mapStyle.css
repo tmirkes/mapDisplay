@@ -1,0 +1,111 @@
+/* Basic styles for image container */
+.image-container {
+    overflow: scroll;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Basic styles for contained image */
+#mainImage {
+    width: 450%;
+    height: auto;
+}
+
+/* Style for squares placed on the image */
+.square {
+    position: absolute;
+    width: 50px;  /* 50px square size */
+    height: 50px;
+    cursor: pointer;
+}
+
+/* Style for the remove button on squares */
+.remove-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    color: red;
+    border-radius: 50%;
+    border: 1px solid darkred;
+    font-size: 10px;
+    text-align: center;
+    line-height: 12px;
+    cursor: pointer;
+    display: none;
+}
+
+/* Show remove button on square hover */
+.square:hover .remove-btn {
+    display: block;
+}
+
+/* Style for the square menu container */
+.square-menu {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* Style for each square option in the menu */
+.menu-square {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+/* Different styles for each square option */
+.square-red {
+    background-image: url("/images/dingo.png");
+    background-size: contain;
+    background-color: rgba(255, 0, 0, 0.6);
+}
+.square-green {
+    background-image: url("/images/dingo.png");
+    background-size: contain;
+    background-color: rgba(0, 255, 0, 0.6);
+}
+.square-blue {
+    background-image: url("/images/dingo.png");
+    background-size: contain;
+    background-color: rgba(0, 0, 255, 0.6);
+}
+.square-yellow {
+    background-image: url("/images/dingo.png");
+    background-size: contain;
+    background-color: rgba(255, 255, 0, 0.6);
+}
+
+/* Highlight style for active menu square */
+.active {
+    outline: 3px solid #333;
+}
+
+/* Style for the Clear All button */
+.clear-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Style for the Save button */
+.save-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+

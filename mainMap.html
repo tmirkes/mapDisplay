@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Main Campaign Map</title>
+        <link rel="stylesheet" href="mapStyle.css">
+        <script src="mapManager.js"></script>
+    </head>
+    <body>
+        <div class="map-container" id="mapContainer">
+            <div class="image-container" id="imageContainer">
+                <img src="/images/twinklespraygorge.jpeg" alt="Clickable Image" id="mainImage">
+            </div>
+            <div class="square-menu" id="squareMenu">
+            <div class="menu-square square-red" data-style="square-red"></div>
+            <div class="menu-square square-green" data-style="square-green"></div>
+            <div class="menu-square square-blue" data-style="square-blue"></div>
+            <div class="menu-square square-yellow" data-style="square-yellow"></div>
+            <button class="clear-button" id="clearButton">Clear All</button>
+            <button class="save-button" id="saveButton">Save Markers</button>
+            </div>
+        </div>
+        <script>
+            main();
+        </script>
+    </body>
+</html>
