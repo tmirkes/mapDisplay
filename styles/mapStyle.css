@@ -1,10 +1,28 @@
-/* Basic styles for image container */
+/* Center the entire container */
+body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Center the image container */
 .image-container {
     overflow: scroll;
     width: 800px;
     height: 600px;
     position: relative;
     display: inline-block;
+    background-color: black;
 }
 
 /* Basic styles for contained image */
@@ -13,15 +31,20 @@
     height: auto;
 }
 
-/* Style for squares placed on the image */
-.square {
-    position: absolute;
-    width: 50px;  /* 50px square size */
-    height: 50px;
-    cursor: pointer;
+#mainImage.wizardTower {
+    width: 90%;
 }
 
-/* Style for the remove button on squares */
+/* Style for square markers */
+.square {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border: medium solid white;
+}
+
+/* Remove button on markers */
 .remove-btn {
     position: absolute;
     top: -8px;
@@ -39,20 +62,22 @@
     display: none;
 }
 
-/* Show remove button on square hover */
 .square:hover .remove-btn {
     display: block;
 }
 
-/* Style for the square menu container */
+/* Style for marker menu */
 .square-menu {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
     align-items: center;
+    justify-content: center;
+    max-width: 800px;
 }
 
-/* Style for each square option in the menu */
+/* Marker menu styling */
 .menu-square {
     width: 50px;
     height: 50px;
@@ -60,52 +85,140 @@
     border: 1px solid #000;
 }
 
-/* Different styles for each square option */
-.square-red {
-    background-image: url("/images/dingo.png");
+/* Hero styling */
+.liten {
+    background: url(/images/liten.png) no-repeat center;
     background-size: contain;
-    background-color: rgba(255, 0, 0, 0.6);
+    background-color: white;
 }
-.square-green {
-    background-image: url("/images/dingo.png");
+.munnin {
+    background: url(/images/munnin.png) no-repeat center;
     background-size: contain;
-    background-color: rgba(0, 255, 0, 0.6);
+    background-color: white;
 }
-.square-blue {
-    background-image: url("/images/dingo.png");
+.ratKing {
+    background: url(/images/dingo.png) no-repeat center;
     background-size: contain;
-    background-color: rgba(0, 0, 255, 0.6);
+    background-color: blue;
 }
-.square-yellow {
-    background-image: url("/images/dingo.png");
+.saytar {
+    background: url(/images/dingo.png) no-repeat center;
     background-size: contain;
-    background-color: rgba(255, 255, 0, 0.6);
+    background-color: red;
 }
 
-/* Highlight style for active menu square */
-.active {
-    outline: 3px solid #333;
+/* NPC styling */
+.clint {
+    background: url(/images/clint.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.evelyn {
+    background: url(/images/evelyn.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.elliot {
+    background: url(/images/elliot.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.gunther {
+    background: url(/images/gunther.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.gus {
+    background: url(/images/gus.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.harvey {
+    background: url(/images/harvey.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.honeyBear {
+    background: url(/images/honeyBear.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.kent {
+    background: url(/images/kent.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.linus {
+    background: url(/images/linus.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.mayorLewis {
+    background: url(/images/mayorLewis.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.morris {
+    background: url(/images/morris.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.mrWhite {
+    background: url(/images/mrWhite.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.pierre {
+    background: url(/images/pierre.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.robyn {
+    background: url(/images/robyn.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.theWizard {
+    background: url(/images/theWizard.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
 }
 
-/* Style for the Clear All button */
-.clear-button {
+/* Monster styling */
+.mummy {
+    background: url(/images/mummy.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.rustMonster {
+    background: url(/images/rustMonster.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+.skeleton {
+    background: url(/images/skeleton.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+
+.active { outline: 3px solid #333; }
+
+/* Button styles */
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.clear-button, .save-button {
     padding: 5px 10px;
     cursor: pointer;
-    background-color: #f44336;
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 14px;
+    margin: 0 5px;
 }
-
-/* Style for the Save button */
-.save-button {
-    padding: 5px 10px;
-    cursor: pointer;
-    background-color: #4CAF50; /* Green color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
+.clear-button { background-color: #f44336; }
+.save-button { background-color: #4CAF50; }
