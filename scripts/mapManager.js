@@ -6,6 +6,9 @@ function main() {
     const placedSquares2 = {};
     const placedSquares3 = {};
 
+    // Get a unique key for each origin
+    let origin = `${window.location.href.substring(window.location.href.lastIndexOf("/") + 1,window.location.href.length - 5)}_`;
+
     // Function to create or update a square
     function createOrUpdateSquare(x, y, style, placedSquares) {
         let square;
@@ -54,13 +57,13 @@ function main() {
             const offsetY = rect.top - imageContainer.getBoundingClientRect().top;
             return { style, x: offsetX, y: offsetY };
         });
-        localStorage.setItem('markers1', JSON.stringify(markers1));
-        localStorage.setItem('markers2', JSON.stringify(markers2));
-        localStorage.setItem('markers3', JSON.stringify(markers3));
+        localStorage.setItem(origin + 'markers1', JSON.stringify(markers1));
+        localStorage.setItem(origin + 'markers2', JSON.stringify(markers2));
+        localStorage.setItem(origin + 'markers3', JSON.stringify(markers3));
     }
 
     function loadMarkers(placedSquares, storageKey) {
-        const markers = JSON.parse(localStorage.getItem(storageKey));
+        const markers = JSON.parse(localStorage.getItem(origin + storageKey));
         if (markers) {
             markers.forEach(marker => {
                 createOrUpdateSquare(marker.x, marker.y, marker.style, placedSquares);
@@ -100,8 +103,12 @@ function main() {
 
     imageContainer.addEventListener('click', (event) => {
         const rect = mainImage.getBoundingClientRect();
+        console.log("image dimensions: " + rect.left + ", " + rect.top)
+        console.log("event dimensions: " + event.clientX + ", " + event.clientY);
+        console.log("expected x: " + ((event.clientX - rect.left) - 25));
         const x = event.clientX - rect.left - 25;
         const y = event.clientY - rect.top - 25;
+        console.log("modified x/y: " + x + "/" + y);
 
         if (document.querySelector('#squareMenu1 .active')) {
             createOrUpdateSquare(x, y, selectedSquareStyle, placedSquares1);
@@ -118,7 +125,7 @@ function main() {
             placedSquares1[style].remove();
             delete placedSquares1[style];
         }
-        localStorage.removeItem('markers1');
+        localStorage.removeItem(origin + 'markers1');
     });
 
     document.getElementById('clearButton2').addEventListener('click', () => {
@@ -126,7 +133,7 @@ function main() {
             placedSquares2[style].remove();
             delete placedSquares2[style];
         }
-        localStorage.removeItem('markers2');
+        localStorage.removeItem(origin + 'markers2');
     });
 
     document.getElementById('clearButton3').addEventListener('click', () => {
@@ -134,7 +141,7 @@ function main() {
             placedSquares3[style].remove();
             delete placedSquares3[style];
         }
-        localStorage.removeItem('markers3');
+        localStorage.removeItem(origin + 'markers3');
     });
 
     // Save buttons
