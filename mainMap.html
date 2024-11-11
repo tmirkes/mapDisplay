@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Campaign Map</title>
-    <link rel="stylesheet" href="/styles/mapStyle.css">
-    <script src="/scripts/mapManager.js"></script>
-</head>
-<body>
-    <div class="map-container" id="mapContainer">
-        <div class="image-container" id="imageContainer">
-            <img src="/images/pelicanTown.jpeg" alt="Clickable Image" id="mainImage">
-        </div>
-        <!-- PC markers -->
-        <div class="square-menu" id="squareMenu1">
-            <div class="menu-square liten" data-style="liten" title="Liten"></div>
-            <div class="menu-square munnin" data-style="munnin" title="Munnin Uvennlig"></div>
-            <div class="menu-square ratKing" data-style="ratKing" title="Rat King"></div>
-            <div class="menu-square saytar" data-style="saytar" title="Saytar"></div>
-            <div class="button-container">
-                <button class="clear-button" id="clearButton1">Clear All</button>
-                <button class="save-button" id="saveButton1">Save Markers</button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+        <link rel="stylesheet" href="/styles/mapStyle.css">
+    </head>
+    <body>
+        <main>
+            <div id="container">
+                <div id="image-container">
+                    <img id="map" src="mineDungeon.jpg" alt="clickable image">
+                </div>
+                <div id="marker-palettes">
+                    <div id="pc-palette" class="palette">
+                        <legend>Characters</legend>
+                        <fieldset class="palette">
+                            <div id="liten" class="sample character" title="Liten"></div>
+                            <div id="munnin" class="sample character" title="Munnin Uvennlig"></div>
+                            <div id="ratKing" class="sample character" title="Rat King"></div>
+                            <div id="saytar" class="sample character" title="Saytar"></div>
+                        </fieldset>
+                    </div>
+                    <div id="npc-palette"class="palette">
+                        <legend>NPCs</legend>
+                        <fieldset class="palette">
+                            <div id="clint" class="sample npc" title="Clint"></div>
+                            <div id="evelyn" class="sample npc" title="Evelyn"></div>
+                            <div id="elliot" class="sample npc" title="Elliot"></div>
+                            <div id="gunther" class="sample npc" title="Gunther"></div>
+                            <div id="gus" class="sample npc" title="Gus"></div>
+                            <div id="harvey" class="sample npc" title="Harvey"></div>
+                            <div id="honeyBear" class="sample npc" title="Honey Bear"></div>
+                            <div id="kent" class="sample npc" title="Kent"></div>
+                            <div id="linus" class="sample npc" title="Linus"></div>
+                            <div id="mayorLewis" class="sample npc" title="Mayor Lewis"></div>
+                            <div id="morris" class="sample npc" title="Morris"></div>
+                            <div id="mrWhite" class="sample npc" title="Mr. White"></div>
+                            <div id="pierre" class="sample npc" title="Pierre"></div>
+                            <div id="robyn" class="sample npc" title="Robyn"></div>
+                            <div id="theWizard" class="sample npc" title="The Wizard"></div>
+                        </fieldset>
+                    </div>
+                    <div id="monster-palette"class="palette">
+                        <legend>Monsters</legend>
+                        <fieldset class="palette">
+                            <div id="mummy" class="sample monster" title="Mummy"></div>
+                            <div id="rustMonster" class="sample monster" title="Rust Monster"></div>
+                            <div id="skeleton" class="sample monster" title="Skeleton"></div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div id="button-box">
+                    <button id="clear-characters" class="button remove-button">Remove PCs</button>
+                    <button id="clear-npcs" class="button remove-button">Remove NPCs</button>
+                    <button id="clear-monsters" class="button remove-button">Remove Monsters</button>
+                    <button id="clear-all" class="button remove-button">Remove All</button>
+                    <button id="save-all" class="button save-button">Save All</button>
+                </div>
             </div>
-        </div>
-        <!-- NPC markers -->
-        <div class="square-menu" id="squareMenu2">
-            <div class="menu-square clint" data-style="clint" title="Clint"></div>
-            <div class="menu-square evelyn" data-style="evelyn" title="Evelyn"></div>
-            <div class="menu-square elliot" data-style="elliot" title="Elliot"></div>
-            <div class="menu-square gunther" data-style="gunther" title="Gunther"></div>
-            <div class="menu-square gus" data-style="gus" title="Gus"></div>
-            <div class="menu-square harvey" data-style="harvey" title="Harvey"></div>
-            <div class="menu-square honeyBear" data-style="honeyBear" title="Honey Bear"></div>
-            <div class="menu-square kent" data-style="kent" title="Kent"></div>
-            <div class="menu-square linus" data-style="linus" title="Linus"></div>
-            <div class="menu-square mayorLewis" data-style="mayorLewis" title="Mayor Lewis"></div>
-            <div class="menu-square morris" data-style="morris" title="Morris"></div>
-            <div class="menu-square mrWhite" data-style="mrWhite" title="Mr. White"></div>
-            <div class="menu-square pierre" data-style="pierre" title="Pierre"></div>
-            <div class="menu-square robyn" data-style="robyn" title="Robyn"></div>
-            <div class="menu-square theWizard" data-style="theWizard" title="The Wizard"></div>
-            <div class="button-container">
-                <button class="clear-button" id="clearButton2">Clear All</button>
-            </div>
-        </div>
-        <!-- Monster markers -->
-        <div class="square-menu" id="squareMenu3">
-            <div class="menu-square mummy" data-style="mummy" title="Mummy"></div>
-            <div class="menu-square rustMonster" data-style="rustMonster" title="Rust Monster"></div>
-            <div class="menu-square skeleton" data-style="skeleton" title="Skeleton"></div>
-            <div class="button-container">
-                <button class="clear-button" id="clearButton3">Clear All</button>
-            </div>
-        </div>
-    </div>
-    <script>
-        main();
-    </script>
-</body>
+        </main>
+    </body>
 </html>

@@ -1,217 +1,49 @@
-/* Center the entire container */
-body, html {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-.map-container {
+#container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 }
-
-/* Center the image container */
-.image-container {
+#image-container {
     overflow: scroll;
-    width: 800px;
-    height: 600px;
+    width: 98vw;
+    height: 75vh;
     position: relative;
     display: inline-block;
-    background-color: black;
+    background-color: white;
 }
-
-/* Basic styles for contained image */
-#mainImage {
-    width: 450%;
+#map.wizard {
+    width: 75%;
     height: auto;
 }
-
-#mainImage.wizardTower {
-    width: 90%;
-}
-
-/* Style for square markers */
-.square {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    border: medium solid white;
-}
-
-/* Remove button on markers */
-.remove-btn {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 12px;
-    height: 12px;
-    background-color: white;
-    color: red;
-    border-radius: 50%;
-    border: 1px solid darkred;
-    font-size: 10px;
-    text-align: center;
-    line-height: 12px;
-    cursor: pointer;
-    display: none;
-}
-
-.square:hover .remove-btn {
-    display: block;
-}
-
-/* Style for marker menu */
-.square-menu {
+.palette {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-    align-items: center;
-    justify-content: center;
-    max-width: 800px;
 }
-
-/* Marker menu styling */
-.menu-square {
+.sample {
+    background-color: black;
     width: 50px;
     height: 50px;
-    cursor: pointer;
-    border: 1px solid #000;
+    margin: 2px 2px;
+    border-radius: 25%;
 }
-
-/* Hero styling */
-.liten {
-    background: url(/images/liten.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
+legend {
+    width: 75px;
+    height: 15%;
+    padding-bottom: 5px;
+    padding-left: 20px;
 }
-.munnin {
-    background: url(/images/munnin.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
+.selected {
+    outline: 3px solid orange;
 }
-.ratKing {
-    background: url(/images/dingo.png) no-repeat center;
-    background-size: contain;
-    background-color: blue;
-}
-.saytar {
-    background: url(/images/dingo.png) no-repeat center;
-    background-size: contain;
-    background-color: red;
-}
-
-/* NPC styling */
-.clint {
-    background: url(/images/clint.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.evelyn {
-    background: url(/images/evelyn.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.elliot {
-    background: url(/images/elliot.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.gunther {
-    background: url(/images/gunther.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.gus {
-    background: url(/images/gus.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.harvey {
-    background: url(/images/harvey.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.honeyBear {
-    background: url(/images/honeyBear.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.kent {
-    background: url(/images/kent.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.linus {
-    background: url(/images/linus.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.mayorLewis {
-    background: url(/images/mayorLewis.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.morris {
-    background: url(/images/morris.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.mrWhite {
-    background: url(/images/mrWhite.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.pierre {
-    background: url(/images/pierre.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.robyn {
-    background: url(/images/robyn.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.theWizard {
-    background: url(/images/theWizard.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-
-/* Monster styling */
-.mummy {
-    background: url(/images/mummy.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.rustMonster {
-    background: url(/images/rustMonster.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-.skeleton {
-    background: url(/images/skeleton.png) no-repeat center;
-    background-size: contain;
-    background-color: white;
-}
-
-.active { outline: 3px solid #333; }
-
-/* Button styles */
-.button-container {
+#marker-palettes {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
+    flex-direction: row;
 }
-
-.clear-button, .save-button {
+#marker-palettes, #button-box {
+    padding: 10px 10px;
+}
+.remove-button, .save-button {
     padding: 5px 10px;
     cursor: pointer;
     color: white;
@@ -220,5 +52,169 @@ body, html {
     font-size: 14px;
     margin: 0 5px;
 }
-.clear-button { background-color: #f44336; }
-.save-button { background-color: #4CAF50; }
+.remove-button {
+    background-color: red;
+}
+.save-button {
+    background-color: green;
+}
+.marker {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border: medium solid white;
+    border-radius: 25%;
+}
+.marker-remove {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid darkred;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    display: none;
+}
+.marker:hover .marker-remove {
+    display: block;
+}
+/* Hero styling */
+#liten, #litenMarker {
+    background: url(/images/liten.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#munnin, #munninMarker {
+    background: url(/images/munnin.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#ratKing, #ratKingMarker {
+    background: url(/images/dingo.png) no-repeat center;
+    background-size: contain;
+    background-color: blue;
+}
+#saytar, #saytarMarker {
+    background: url(/images/dingo.png) no-repeat center;
+    background-size: contain;
+    background-color: red;
+}
+#party, #partyMarker {
+    background: url(/images/team.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+/* NPC styling */
+#artemisAtaris, #artemisAtarisMarker {
+    background: url(/images/artemis.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#cat, #catMarker {
+    background: url(/images/cat.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#chicken, #chickenMarker {
+    background: url(/images/chicken.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#clint, #clintMarker {
+    background: url(/images/clint.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#evelyn, #evelynMarker {
+    background: url(/images/evelyn.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#elliot, #elliotMarker {
+    background: url(/images/elliot.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#gunther, #guntherMarker {
+    background: url(/images/gunther.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#gus, #gusMarker {
+    background: url(/images/gus.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#harvey, #harveyMarker {
+    background: url(/images/harvey.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#honeyBear, #honeyBearMarker {
+    background: url(/images/honeyBear.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#kent, #kentMarker {
+    background: url(/images/kent.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#linus, #linusMarker {
+    background: url(/images/linus.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#mayorLewis, #mayorLewisMarker {
+    background: url(/images/mayorLewis.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#morris, #morrisMarker {
+    background: url(/images/morris.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#mrWhite, #mrWhiteMarker {
+    background: url(/images/mrWhite.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#pierre, #pierreMarker {
+    background: url(/images/pierre.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#robyn, #robynMarker {
+    background: url(/images/robyn.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#theWizard, #theWizardMarker {
+    background: url(/images/theWizard.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+/* Monster styling */
+#mummy, #mummyMarker {
+    background: url(/images/mummy.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#rustMonster, #rustMonsterMarker {
+    background: url(/images/rustMonster.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}
+#skeleton, #skeletonMarker {
+    background: url(/images/skeleton.png) no-repeat center;
+    background-size: contain;
+    background-color: white;
+}

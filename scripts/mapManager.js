@@ -1,151 +1,142 @@
-function main() {
-    const imageContainer = document.getElementById('imageContainer');
-    const mainImage = document.getElementById('mainImage');
-    let selectedSquareStyle = 'liten';
-    const placedSquares1 = {};
-    const placedSquares2 = {};
-    const placedSquares3 = {};
+// Load the div containing the image
+const imageContainer = document.getElementById('image-container');
+// Load the image to mark
+const mainImage = document.getElementById('map');
+// Default marker type to be created
+let currentMarkerType = "none";
+// Build the maps to contain placed markers
+let placedMarkers = {};
+// Get a unique key for each origin
+const storagePrefix = `${window.location.href}_`;
 
-    // Get a unique key for each origin
-    const storagePrefix = `${window.location.href}_`;
+// Event listener for menu marker selection
+const markerMenu = document.getElementById('marker-palettes');
+markerMenu.addEventListener('click', (event) => {
+    const isSample = event.target.className.includes('sample');
+    if (!isSample) {
+        return;
+    }
+    document.querySelectorAll(".sample").forEach(option => option.classList.remove('selected'))
+    document.getElementById(event.target.id).classList.add('selected');
+    currentMarkerType = event.target.id;
+});
 
-    // Function to create or update a square
-    function createOrUpdateSquare(x, y, style, placedSquares) {
-        let square;
-        if (placedSquares[style]) {
-            square = placedSquares[style];
-            square.style.left = `${x}px`;
-            square.style.top = `${y}px`;
+// Function to create or update a marker
+function placeMarker(x, y) {
+    let markerData = document.getElementById(currentMarkerType);
+    let newMarker;
+    // Do nothing if no marker option is selected
+    if (currentMarkerType === "none") {
+        return;
+    }
+    // Place a new marker or update an existing one
+    if (placedMarkers[currentMarkerType]) {
+        newMarker = placedMarkers[currentMarkerType];
+        newMarker.style.left = `${x}px`;
+        newMarker.style.top = `${y}px`;
+    } else {
+        const markerName = currentMarkerType + "Marker";
+        newMarker = document.createElement('div');
+        newMarker.classList.add('marker')
+        if (markerData.className.includes('npc')) {
+            newMarker.classList.add('npc');
+        } else if (markerData.className.includes('character')) {
+            newMarker.classList.add('character');
         } else {
-            square = document.createElement('div');
-            square.classList.add('square', style);
-            square.style.left = `${x}px`;
-            square.style.top = `${y}px`;
-
-            const removeBtn = document.createElement('div');
-            removeBtn.classList.add('remove-btn');
-            removeBtn.textContent = 'X';
-            removeBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                square.remove();
-                delete placedSquares[style];
-                saveMarkers();
-            });
-
-            square.appendChild(removeBtn);
-            imageContainer.appendChild(square);
-            placedSquares[style] = square;
+            newMarker.classList.add('monster');
         }
-    }
+        newMarker.id = markerName;
+        newMarker.style.left = `${x}px`;
+        newMarker.style.top = `${y}px`;
 
-    function saveMarkers() {
-        const markers1 = Object.entries(placedSquares1).map(([style, square]) => {
-            const rect = square.getBoundingClientRect();
-            const offsetX = rect.left - imageContainer.getBoundingClientRect().left;
-            const offsetY = rect.top - imageContainer.getBoundingClientRect().top;
-            return { style, x: offsetX, y: offsetY };
+        const removeButton = document.createElement('div');
+        removeButton.classList.add('marker-remove');
+        removeButton.textContent = 'X';
+        removeButton.addEventListener('click', (event) => {
+            currentMarkerType = newMarker.id.replace("Marker","");
+            event.stopPropagation();
+            newMarker.remove();
+            delete placedMarkers[currentMarkerType];
+            document.querySelectorAll(".sample").forEach(option => option.classList.remove('selected'));
         });
-        const markers2 = Object.entries(placedSquares2).map(([style, square]) => {
-            const rect = square.getBoundingClientRect();
-            const offsetX = rect.left - imageContainer.getBoundingClientRect().left;
-            const offsetY = rect.top - imageContainer.getBoundingClientRect().top;
-            return { style, x: offsetX, y: offsetY };
-        });
-        const markers3 = Object.entries(placedSquares3).map(([style, square]) => {
-            const rect = square.getBoundingClientRect();
-            const offsetX = rect.left - imageContainer.getBoundingClientRect().left;
-            const offsetY = rect.top - imageContainer.getBoundingClientRect().top;
-            return { style, x: offsetX, y: offsetY };
-        });
-        localStorage.setItem(storagePrefix + 'markers1', JSON.stringify(markers1));
-        localStorage.setItem(storagePrefix + 'markers2', JSON.stringify(markers2));
-        localStorage.setItem(storagePrefix + 'markers3', JSON.stringify(markers3));
+        newMarker.appendChild(removeButton);
+        imageContainer.appendChild(newMarker);
+        placedMarkers[currentMarkerType] = newMarker;
     }
+};
 
-    function loadMarkers(placedSquares, storageKey) {
-        const markers = JSON.parse(localStorage.getItem(storagePrefix + storageKey));
-        if (markers) {
-            markers.forEach(marker => {
-                createOrUpdateSquare(marker.x, marker.y, marker.style, placedSquares);
-            });
+// Event listener for marker placement on image
+imageContainer.addEventListener('click', (event) => {
+    const rectangle = mainImage.getBoundingClientRect();
+    const x = event.clientX - rectangle.left - 25;
+    const y = event.clientY - rectangle.top - 25;
+    placeMarker(x, y);
+});
+
+// Function to save placed markers
+function saveMarkers() {
+    const scrollYOffset = document.getElementById('image-container').scrollTop * 1.0;
+    const scrollXOffset = document.getElementById('image-container').scrollLeft * 1.0;
+
+    const markersToSave = Object.entries(placedMarkers).map(([currentMarkerType, marker]) => {
+        const markerName = currentMarkerType;
+        const bounds = marker.getBoundingClientRect();
+        let offsetX = bounds.left - imageContainer.getBoundingClientRect().left + scrollXOffset;
+        let offsetY = bounds.top - imageContainer.getBoundingClientRect().top + scrollYOffset;
+        return { markerName, x: offsetX, y: offsetY };
+    });
+    localStorage.setItem(storagePrefix + 'marker_save', JSON.stringify(markersToSave));
+};
+
+// Event listeners for clear buttons
+document.getElementById("clear-characters").addEventListener('click', () => {
+    for (const marker in placedMarkers) {
+        if (placedMarkers[marker].className.includes("character")) {
+            placedMarkers[marker].remove();
+            delete placedMarkers[marker];
         }
     }
-
-    // Function to deselect all menu squares
-    function deselectAllMenus() {
-        document.querySelectorAll('.menu-square').forEach(square => square.classList.remove('active'));
+});
+document.getElementById("clear-npcs").addEventListener('click', () => {
+    for (const marker in placedMarkers) {
+        if (placedMarkers[marker].className.includes("npc")) {
+            placedMarkers[marker].remove();
+            delete placedMarkers[marker];
+        }
     }
-
-    // Menu event listeners with cross-menu deselection
-    document.getElementById('squareMenu1').addEventListener('click', (event) => {
-        if (event.target.classList.contains('menu-square')) {
-            deselectAllMenus();
-            selectedSquareStyle = event.target.getAttribute('data-style');
-            event.target.classList.add('active');
+});
+document.getElementById("clear-monsters").addEventListener('click', () => {
+    for (const marker in placedMarkers) {
+        if (placedMarkers[marker].className.includes("monster")) {
+            placedMarkers[marker].remove();
+            delete placedMarkers[marker];
         }
-    });
-
-    document.getElementById('squareMenu2').addEventListener('click', (event) => {
-        if (event.target.classList.contains('menu-square')) {
-            deselectAllMenus();
-            selectedSquareStyle = event.target.getAttribute('data-style');
-            event.target.classList.add('active');
+    }
+});
+document.getElementById("clear-all").addEventListener('click', () => {
+    for (const marker in placedMarkers) {
+        if (placedMarkers[marker].className.includes("marker")) {
+            placedMarkers[marker].remove();
+            delete placedMarkers[marker];
         }
-    });
+    }
+});
 
-    document.getElementById('squareMenu3').addEventListener('click', (event) => {
-        if (event.target.classList.contains('menu-square')) {
-            deselectAllMenus();
-            selectedSquareStyle = event.target.getAttribute('data-style');
-            event.target.classList.add('active');
-        }
-    });
+// Event listner for save button
+document.getElementById('save-all').addEventListener('click', saveMarkers);
 
-    imageContainer.addEventListener('click', (event) => {
-        const rect = mainImage.getBoundingClientRect();
-        const x = event.clientX - rect.left - 25;
-        const y = event.clientY - rect.top - 25;
-
-        if (document.querySelector('#squareMenu1 .active')) {
-            createOrUpdateSquare(x, y, selectedSquareStyle, placedSquares1);
-        } else if (document.querySelector('#squareMenu2 .active')) {
-            createOrUpdateSquare(x, y, selectedSquareStyle, placedSquares2);
-        } else if (document.querySelector('#squareMenu3 .active')) {
-            createOrUpdateSquare(x, y, selectedSquareStyle, placedSquares3);
-        }
-    });
-
-    // Clear buttons
-    document.getElementById('clearButton1').addEventListener('click', () => {
-        for (const style in placedSquares1) {
-            placedSquares1[style].remove();
-            delete placedSquares1[style];
-        }
-        localStorage.removeItem(storagePrefix + 'markers1');
-    });
-
-    document.getElementById('clearButton2').addEventListener('click', () => {
-        for (const style in placedSquares2) {
-            placedSquares2[style].remove();
-            delete placedSquares2[style];
-        }
-        localStorage.removeItem(storagePrefix + 'markers2');
-    });
-
-    document.getElementById('clearButton3').addEventListener('click', () => {
-        for (const style in placedSquares3) {
-            placedSquares3[style].remove();
-            delete placedSquares3[style];
-        }
-        localStorage.removeItem(storagePrefix + 'markers3');
-    });
-
-    // Save buttons
-    document.getElementById('saveButton1').addEventListener('click', saveMarkers);
-
-    window.onload = () => {
-        loadMarkers(placedSquares1, 'markers1');
-        loadMarkers(placedSquares2, 'markers2');
-        loadMarkers(placedSquares3, 'markers3');
-    };
+// Function to load saved markers
+function loadMarkers(placedMarkers) {
+    const savedMarkers = JSON.parse(localStorage.getItem(storagePrefix + 'marker_save'));
+    if (savedMarkers) {
+        savedMarkers.forEach(marker => {
+            currentMarkerType = marker.markerName;
+            placeMarker(marker.x, marker.y);
+        })
+    }
 }
+
+// Load all saved markers for the loaded page
+window.onload = () => {
+    loadMarkers(placedMarkers);
+};
